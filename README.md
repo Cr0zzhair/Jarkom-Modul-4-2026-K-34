@@ -261,39 +261,86 @@ Eiri -> 192.228.16.130 -> 255.255.255.248 -> 192.228.16.129
 
 ---
 
-#### C. Routing di Semua Router
+#### C. Routing di Semua Router (GNS3 Linux Node)
 
-##### 1. Routing Dinamis OSPF (Cisco IOS / Cisco Packet Tracer):
-Pada konfigurasi router Cisco IOS, routing OSPF diaktifkan untuk network root supernet `192.228.0.0/19` (Wildcard: `0.0.31.255`):
-```cisco
-enable
-conf t
-router ospf 1
- network 192.228.0.0 0.0.31.255 area 0
- exit
-exit
-wr
-```
-*(Catatan: Dapat juga menggunakan wildcard `0.0.255.255` untuk mencakup seluruh prefix `192.228.x.x`)*.
+Seluruh router di GNS3 menggunakan sistem operasi Linux dengan perintah routing statis `ip route add` (serta `iptables` NAT pada gateway Cyberia), memanfaatkan hierarki supernetting CIDR (*route aggregation*) sehingga tabel routing sangat ringkas dan efisien:
 
-##### 2. Routing Statis CIDR (GNS3 Linux Node):
-Diimplementasikan secara modular pada skrip [`routings/gns3/`](./routings/gns3/):
-- **Gateway Cyberia**:
+- **`Cyberia` (Gateway Internet & NAT)**:
   ```bash
-  ip route add 192.228.0.0/19 via 192.228.28.130
+  ip route add 192.228.0.0/19 via 192.228.28.130   # Seluruh The Wired via Wired
   iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
   ```
-- **Backbone Wired**:
+
+- **`Wired` (Backbone Transit)**:
   ```bash
-  ip route add default via 192.228.28.129
-  ip route add 192.228.24.0/22 via 192.228.28.134   # Sayap Kanan (Navi)
-  ip route add 192.228.16.0/21 via 192.228.28.138   # Sayap Bawah (Tachibana)
-  ip route add 192.228.8.0/22  via 192.228.4.2      # Sayap Kiri (Psyche)
-  ip route add 192.228.12.0/22 via 192.228.4.3      # Sayap Kiri (Copland)
-  ip route add 192.228.0.0/21  via 192.228.4.4      # Sayap Kiri (Schumann & Accela)
+  ip route add default via 192.228.28.129          # Ke Cyberia (Internet)
+  ip route add 192.228.24.0/22 via 192.228.28.134  # Blok C4 (Sayap Kanan / Navi)
+  ip route add 192.228.16.0/21 via 192.228.28.138  # Blok G1 (Sayap Bawah / Tachibana)
+  ip route add 192.228.8.0/22  via 192.228.4.2     # Blok A1 (Sayap Kiri / Psyche)
+  ip route add 192.228.12.0/22 via 192.228.4.3     # Blok B2 (Sayap Kiri / Copland)
+  ip route add 192.228.0.0/21  via 192.228.4.4     # Blok D1 (Sayap Kiri / Schumann & Accela)
   ```
-- **Router Cabang & Sayap Bawah**:
-  Masing-masing router menambahkan default route ke arah uplink router dan rute supernet ke arah downstream sesuai hirarki CIDR.
+
+- **`Navi` (Sayap Kanan)**:
+  ```bash
+  ip route add default via 192.228.28.133          # Ke Wired
+  ```
+
+- **`Tachibana`**:
+  ```bash
+  ip route add default via 192.228.28.137          # Ke Wired
+  ip route add 192.228.16.0/22 via 192.228.22.2   # Blok F1 (Deus s/d Shibuya)
+  ```
+
+- **`Deus`**:
+  ```bash
+  ip route add default via 192.228.22.1            # Ke Tachibana
+  ip route add 192.228.16.0/23 via 192.228.18.130 # Blok E2 (Protocol7 s/d Shibuya)
+  ```
+
+- **`Protocol7`**:
+  ```bash
+  ip route add default via 192.228.18.129          # Ke Deus
+  ip route add 192.228.16.0/24 via 192.228.17.66  # Blok D2 (Knights s/d Shibuya)
+  ```
+
+- **`Knights`**:
+  ```bash
+  ip route add default via 192.228.17.65           # Ke Protocol7
+  ip route add 192.228.16.0/25 via 192.228.16.138 # Blok C3 (Phantoma & Shibuya)
+  ```
+
+- **`Phantoma`**:
+  ```bash
+  ip route add default via 192.228.16.137          # Ke Knights
+  ip route add 192.228.16.0/26 via 192.228.16.98  # Blok A9 (Shibuya)
+  ```
+
+- **`Shibuya`**:
+  ```bash
+  ip route add default via 192.228.16.97           # Ke Phantoma
+  ```
+
+- **`Psyche`**:
+  ```bash
+  ip route add default via 192.228.4.1             # Ke Wired via Switch2
+  ```
+
+- **`Copland`**:
+  ```bash
+  ip route add default via 192.228.4.1             # Ke Wired via Switch2
+  ```
+
+- **`Schumann`**:
+  ```bash
+  ip route add default via 192.228.4.1             # Ke Wired via Switch2
+  ip route add 192.228.0.0/22 via 192.228.4.10    # Blok A2 (Accela)
+  ```
+
+- **`Accela`**:
+  ```bash
+  ip route add default via 192.228.4.9             # Ke Schumann
+  ```
 
 ---
 
