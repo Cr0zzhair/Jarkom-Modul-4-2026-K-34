@@ -10,7 +10,7 @@
 ## Dokumen & File Praktikum
 
 - **File CPT**: [`K-34-CPT-VLSM-.pkt`](./K-34-CPT-VLSM-.pkt)
-- **Spreadsheet Perhitungan CIDR & VLSM**: *(Tersedia di Google Spreadsheet)*
+- **Spreadsheet Perhitungan CIDR & VLSM**: [Google Spreadsheet K-34](https://docs.google.com/spreadsheets/d/1ZsvRJBebb4XmUBrfPrN1W4d9o1MQmDzJ5wA2ljYofLs/edit?usp=sharing)
 - **Script Modular Node**: [`routings/gns3/`](./routings/gns3/)
 
 ---
@@ -19,7 +19,7 @@
 
 Pada bagian simulasi Cisco Packet Tracer diterapkan metode **VLSM (Variable Length Subnet Mask)**. Seluruh skema pengalamatan, konfigurasi interface router Cisco, switch, serta host PC telah diimplementasikan pada file project [`K-34-CPT-VLSM-.pkt`](./K-34-CPT-VLSM-.pkt).
 
-Perhitungan rinci kebutuhan IP, netmask VLSM per subnet, range usable IP, serta pengujian konektivitas antarnode tercantum dalam spreadsheet pada sheet **"Pembagian IP - VLSM"**.
+Perhitungan rinci kebutuhan IP, netmask VLSM per subnet, range usable IP, serta pengujian konektivitas antarnode tercantum dalam [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1ZsvRJBebb4XmUBrfPrN1W4d9o1MQmDzJ5wA2ljYofLs/edit?usp=sharing) pada sheet **"Pembagian IP - VLSM"**.
 
 ---
 
