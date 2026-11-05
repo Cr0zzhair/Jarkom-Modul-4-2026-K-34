@@ -10,7 +10,7 @@
 ## Dokumen & File Praktikum
 
 - **File CPT**: [`K-34-CPT-VLSM-.pkt`](./K-34-CPT-VLSM-.pkt)
-- **Spreadsheet Perhitungan CIDR & VLSM**: [`Spreadsheet Modul 4 Komdat Jarkom 2026 K34.xlsx`](./Spreadsheet%20Modul%204%20Komdat%20Jarkom%202026%20K34.xlsx)
+- **Spreadsheet Perhitungan CIDR & VLSM**: *(Tersedia di Google Spreadsheet)*
 - **Script Modular Node**: [`routings/gns3/`](./routings/gns3/)
 
 ---
