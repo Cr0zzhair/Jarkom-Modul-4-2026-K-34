@@ -136,7 +136,168 @@ Penggabungan rute dilakukan secara hierarkis (*bottom-up*) dari subnet terkecil 
 
 ---
 
-### 4. Panduan Pengujian Konektivitas (Testing Matrix)
+### 4. Konfigurasi Routing & Pengalamatan Node
+
+#### A. Config Router (Interface Router)
+Format: `ke <Tujuan / Subnet> (<Interface>) -> <IP Address> -> <Netmask>`
+
+**Cyberia**
+ke Cloud / NAT1 (eth0) -> DHCP / IP dari ISP
+ke Switch1 / Subnet A7 (eth1) -> 192.228.28.1 -> 255.255.255.128
+ke Wired / Subnet A17 (eth2) -> 192.228.28.129 -> 255.255.255.252
+
+**Wired**
+ke Cyberia / Subnet A17 (eth0) -> 192.228.28.130 -> 255.255.255.252
+ke Switch2 / Subnet A14 (eth1) -> 192.228.4.1 -> 255.255.255.248
+ke Tachibana / Subnet A19 (eth2) -> 192.228.28.137 -> 255.255.255.252
+ke Navi / Subnet A18 (eth3) -> 192.228.28.133 -> 255.255.255.252
+
+**Navi**
+ke Wired / Subnet A18 (eth0) -> 192.228.28.134 -> 255.255.255.252
+ke A5 / Switch6 (eth1) -> 192.228.24.1 -> 255.255.255.0
+ke A10 / Switch7 (eth2) -> 192.228.25.1 -> 255.255.255.192
+ke A6 / Switch8 (eth3) -> 192.228.26.1 -> 255.255.255.0
+
+**Tachibana**
+ke Wired / Subnet A19 (eth0) -> 192.228.28.138 -> 255.255.255.252
+ke A4 / Switch9 (eth1) -> 192.228.20.1 -> 255.255.254.0
+ke Deus / Subnet A21 (eth2) -> 192.228.22.1 -> 255.255.255.252
+
+**Deus**
+ke Tachibana / Subnet A21 (eth0) -> 192.228.22.2 -> 255.255.255.252
+ke A8 / Switch10 (eth1) -> 192.228.18.1 -> 255.255.255.128
+ke Protocol7 / Subnet A22 (eth2) -> 192.228.18.129 -> 255.255.255.252
+
+**Protocol7**
+ke Deus / Subnet A22 (eth0) -> 192.228.18.130 -> 255.255.255.252
+ke A11 / Switch11 (eth1) -> 192.228.17.1 -> 255.255.255.192
+ke Knights / Subnet A23 (eth2) -> 192.228.17.65 -> 255.255.255.252
+
+**Knights**
+ke Protocol7 / Subnet A23 (eth0) -> 192.228.17.66 -> 255.255.255.252
+ke A16 / Eiri (eth1) -> 192.228.16.129 -> 255.255.255.248
+ke Phantoma / Subnet A24 (eth2) -> 192.228.16.137 -> 255.255.255.252
+
+**Phantoma**
+ke Knights / Subnet A24 (eth0) -> 192.228.16.138 -> 255.255.255.252
+ke A13 / Switch12 (eth1) -> 192.228.16.65 -> 255.255.255.224
+ke Shibuya / Subnet A25 (eth2) -> 192.228.16.97 -> 255.255.255.252
+
+**Shibuya**
+ke Phantoma / Subnet A25 (eth0) -> 192.228.16.98 -> 255.255.255.252
+ke A9 / Switch13 (eth1) -> 192.228.16.1 -> 255.255.255.192
+
+**Psyche**
+ke Switch2 / Subnet A14 (eth0) -> 192.228.4.2 -> 255.255.255.248
+ke A1 / Switch3 (eth1) -> 192.228.8.1 -> 255.255.252.0
+
+**Copland**
+ke Switch2 / Subnet A14 (eth0) -> 192.228.4.3 -> 255.255.255.248
+ke A3 / Switch4 (eth1) -> 192.228.12.1 -> 255.255.254.0
+ke A12 / Juri (eth2) -> 192.228.14.1 -> 255.255.255.192
+
+**Schumann**
+ke Switch2 / Subnet A14 (eth0) -> 192.228.4.4 -> 255.255.255.248
+ke A15 / Akashic (eth1) -> 192.228.4.17 -> 255.255.255.248
+ke Accela / Subnet A20 (eth2) -> 192.228.4.9 -> 255.255.255.252
+
+**Accela**
+ke Schumann / Subnet A20 (eth0) -> 192.228.4.10 -> 255.255.255.252
+ke A2 / Switch5 (eth1) -> 192.228.0.1 -> 255.255.252.0
+
+---
+
+#### B. CONFIG HOST
+Format: `NODE -> IP ADDRESS -> NETMASK -> DEFAULT GATEWAY`
+
+**Area Router Psyche (Subnet A1)**
+Karl -> 192.228.8.2 -> 255.255.252.0 -> 192.228.8.1  
+Lin -> 192.228.8.3 -> 255.255.252.0 -> 192.228.8.1  
+
+**Area Router Accela (Subnet A2)**
+Omnipresence -> 192.228.0.2 -> 255.255.252.0 -> 192.228.0.1  
+Denpa -> 192.228.0.3 -> 255.255.252.0 -> 192.228.0.1  
+
+**Area Router Copland (Subnet A3 & A12)**
+Masayuki (A3) -> 192.228.12.2 -> 255.255.254.0 -> 192.228.12.1  
+Juri (A12) -> 192.228.14.2 -> 255.255.255.192 -> 192.228.14.1  
+
+**Area Router Tachibana (Subnet A4)**
+Collective -> 192.228.20.2 -> 255.255.254.0 -> 192.228.20.1  
+Ghost -> 192.228.20.3 -> 255.255.254.0 -> 192.228.20.1  
+
+**Area Router Navi (Subnet A5, A6 & A10)**
+Alice (A5) -> 192.228.24.2 -> 255.255.255.0 -> 192.228.24.1  
+Reika (A5) -> 192.228.24.3 -> 255.255.255.0 -> 192.228.24.1  
+Yasuo (A6) -> 192.228.26.2 -> 255.255.255.0 -> 192.228.26.1  
+Miho (A6) -> 192.228.26.3 -> 255.255.255.0 -> 192.228.26.1  
+Kuma (A6) -> 192.228.26.4 -> 255.255.255.0 -> 192.228.26.1  
+Taro (A10) -> 192.228.25.2 -> 255.255.255.192 -> 192.228.25.1  
+
+**Area Router Cyberia (Subnet A7)**
+JJ -> 192.228.28.2 -> 255.255.255.128 -> 192.228.28.1  
+MyuMyu -> 192.228.28.3 -> 255.255.255.128 -> 192.228.28.1  
+
+**Area Router Deus (Subnet A8)**
+Lilith -> 192.228.18.2 -> 255.255.255.128 -> 192.228.18.1  
+Specter -> 192.228.18.3 -> 255.255.255.128 -> 192.228.18.1  
+
+**Area Router Shibuya (Subnet A9)**
+Lain -> 192.228.16.2 -> 255.255.255.192 -> 192.228.16.1  
+Mika -> 192.228.16.3 -> 255.255.255.192 -> 192.228.16.1  
+
+**Area Router Protocol7 (Subnet A11)**
+Chisa -> 192.228.17.2 -> 255.255.255.192 -> 192.228.17.1  
+Hodgeson -> 192.228.17.3 -> 255.255.255.192 -> 192.228.17.1  
+
+**Area Router Phantoma (Subnet A13)**
+Semi -> 192.228.16.66 -> 255.255.255.224 -> 192.228.16.65  
+
+**Area Router Schumann (Subnet A15)**
+Akashic -> 192.228.4.18 -> 255.255.255.248 -> 192.228.4.17  
+
+**Area Router Knights (Subnet A16)**
+Eiri -> 192.228.16.130 -> 255.255.255.248 -> 192.228.16.129  
+
+---
+
+#### C. Routing di Semua Router
+
+##### 1. Routing Dinamis OSPF (Cisco IOS / Cisco Packet Tracer):
+Pada konfigurasi router Cisco IOS, routing OSPF diaktifkan untuk network root supernet `192.228.0.0/19` (Wildcard: `0.0.31.255`):
+```cisco
+enable
+conf t
+router ospf 1
+ network 192.228.0.0 0.0.31.255 area 0
+ exit
+exit
+wr
+```
+*(Catatan: Dapat juga menggunakan wildcard `0.0.255.255` untuk mencakup seluruh prefix `192.228.x.x`)*.
+
+##### 2. Routing Statis CIDR (GNS3 Linux Node):
+Diimplementasikan secara modular pada skrip [`routings/gns3/`](./routings/gns3/):
+- **Gateway Cyberia**:
+  ```bash
+  ip route add 192.228.0.0/19 via 192.228.28.130
+  iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+  ```
+- **Backbone Wired**:
+  ```bash
+  ip route add default via 192.228.28.129
+  ip route add 192.228.24.0/22 via 192.228.28.134   # Sayap Kanan (Navi)
+  ip route add 192.228.16.0/21 via 192.228.28.138   # Sayap Bawah (Tachibana)
+  ip route add 192.228.8.0/22  via 192.228.4.2      # Sayap Kiri (Psyche)
+  ip route add 192.228.12.0/22 via 192.228.4.3      # Sayap Kiri (Copland)
+  ip route add 192.228.0.0/21  via 192.228.4.4      # Sayap Kiri (Schumann & Accela)
+  ```
+- **Router Cabang & Sayap Bawah**:
+  Masing-masing router menambahkan default route ke arah uplink router dan rute supernet ke arah downstream sesuai hirarki CIDR.
+
+---
+
+### 5. Panduan Pengujian Konektivitas (Testing Matrix)
 
 1. **Uji Internet Gateway pada `Cyberia`**:
    - `ping -c 3 8.8.8.8` (0% packet loss ke internet melalui NAT1).
