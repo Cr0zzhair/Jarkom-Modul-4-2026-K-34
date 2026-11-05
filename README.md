@@ -94,7 +94,10 @@ Berdasarkan sheet **"Rute"** dan **"Pembagian IP - CIDR"** terbaru, total kebutu
 
 Penggabungan rute dilakukan secara hierarkis (*bottom-up*) dari subnet terkecil hingga mencapai Root Supernet:
 
-![Skema Penggabungan CIDR](assets/Topologi_Penggabungan_CIDR.jpeg)
+> [!NOTE]
+> *(Diagram visual skema penggabungan CIDR terbaru akan diunggah menyusul)*
+
+<!-- ![Skema Penggabungan CIDR](assets/Topologi_Penggabungan_CIDR.jpeg) -->
 
 #### Tahap I (Prefix Kelompok B)
 - **B1**: A14 (`192.228.4.0/29`) + A20 (`192.228.4.8/30`) $	o$ **`192.228.4.0/28`** (Rentang: `4.0` - `4.15`)
