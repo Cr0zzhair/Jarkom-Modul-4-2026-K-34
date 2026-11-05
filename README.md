@@ -12,7 +12,7 @@
 - **File CPT**: [`K-34-CPT-VLSM-.pkt`](./K-34-CPT-VLSM-.pkt)
 - **Spreadsheet Perhitungan CIDR & VLSM**: [`Spreadsheet Modul 4 Komdat Jarkom 2026 K34.xlsx`](./Spreadsheet%20Modul%204%20Komdat%20Jarkom%202026%20K34.xlsx)
 - **Script Modular Node**: [`routings/gns3/`](./routings/gns3/)
-- **Referensi Internal**: [`konfigurasi_topologi.md`](./konfigurasi_topologi.md), [`laporan_supernetting_cidr.md`](./laporan_supernetting_cidr.md), [`pembagian_ip_cidr_v2.md`](./pembagian_ip_cidr_v2.md)
+- **Referensi Konfigurasi**: [`konfigurasi_topologi.md`](./konfigurasi_topologi.md)
 
 ---
 
