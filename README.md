@@ -36,19 +36,19 @@ Topologi "The Wired Expansion" terdiri dari **13 Router Linux, 13 Switch, 25 Hos
 ![Topologi Jaringan GNS3](assets/Topologi_GNS3.png)
 
 - **Gateway Internet & LAN Atas**:
-  - **`Cyberia`**: Terhubung ke `NAT1` (akses WAN internet) melalui `eth0`, ke LAN client (`JJ`, `MyuMyu` via `Switch1`), dan ke backbone **`Wired`**.
+    - **`Cyberia`**: Terhubung ke `NAT1` (akses WAN internet) melalui `eth0`, ke LAN client (`JJ`, `MyuMyu` via `Switch1`), dan ke backbone **`Wired`**.
 - **Backbone Router**:
-  - **`Wired`**: Berperan sebagai pusat transit trafik antarsayap dan default gateway internal ke arah Cyberia.
+    - **`Wired`**: Berperan sebagai pusat transit trafik antarsayap dan default gateway internal ke arah Cyberia.
 - **Sayap Kiri (Multi-access Switch2)**:
-  - Hub `Switch2` menghubungkan **`Wired`**, **`Psyche`**, **`Copland`**, dan **`Schumann`**.
-  - **`Psyche`** membawahi `Switch3` (`Karl` dan `Lin` — blok terbesar 881 IP, Subnet A1).
-  - **`Copland`** membawahi `Switch4` (`Masayuki` — 301 IP, Subnet A3) serta direct link ke host **`Juri`** (32 IP, Subnet A12).
-  - **`Schumann`** membawahi direct host **`Akashic`** (4 IP, Subnet A15) dan Router **`Accela`** (`Switch5` → `Omnipresence` dan `Denpa` — 514 IP, Subnet A2).
+    - Hub `Switch2` menghubungkan **`Wired`**, **`Psyche`**, **`Copland`**, dan **`Schumann`**.
+    - **`Psyche`** membawahi `Switch3` (`Karl` dan `Lin` — blok terbesar 881 IP, Subnet A1).
+    - **`Copland`** membawahi `Switch4` (`Masayuki` — 301 IP, Subnet A3) serta direct link ke host **`Juri`** (32 IP, Subnet A12).
+    - **`Schumann`** membawahi direct host **`Akashic`** (4 IP, Subnet A15) dan Router **`Accela`** (`Switch5` → `Omnipresence` dan `Denpa` — 514 IP, Subnet A2).
 - **Sayap Kanan (Router Navi)**:
-  - **`Navi`** membawahi 3 subnet LAN: `Switch6` (`Alice`, `Reika` — Subnet A5), `Switch7` (`Taro` — Subnet A10), dan `Switch8` (`Yasuo`, `Miho`, `Kuma` — Subnet A6).
+    - **`Navi`** membawahi 3 subnet LAN: `Switch6` (`Alice`, `Reika` — Subnet A5), `Switch7` (`Taro` — Subnet A10), dan `Switch8` (`Yasuo`, `Miho`, `Kuma` — Subnet A6).
 - **Sayap Bawah (Rantai Router Tachibana s.d. Shibuya)**:
-  - Rantai serial 6 router: **`Tachibana` → `Deus` → `Protocol7` → `Knights` → `Phantoma` → `Shibuya`**.
-  - Setiap router memiliki segmen LAN masing-masing (`Switch9` s.d. `Switch13` serta server direct `Eiri` pada Knights).
+    - Rantai serial 6 router: **`Tachibana` → `Deus` → `Protocol7` → `Knights` → `Phantoma` → `Shibuya`**.
+    - Setiap router memiliki segmen LAN masing-masing (`Switch9` s.d. `Switch13` serta server direct `Eiri` pada Knights).
 
 ---
 
@@ -66,37 +66,33 @@ Aturan: **Jumlah IP = host + alamat interface router** pada subnet tersebut.
 
 #### Tabel Subnet CIDR (A1–A25)
 
-| Subnet | Jalur / Rute | Kebutuhan IP | Prefix & Netmask | Network ID | Range Usable IP | Broadcast |
-| :---: | :--- | :---: | :---: | :---: | :---: | :---: |
-| **A1** | Psyche > Switch3 > Karl, Lin | 881 | `/22` (`255.255.252.0`) | `192.228.8.0` | `192.228.8.1 - 192.228.11.254` | `192.228.11.255` |
-| **A2** | Accela > Switch5 > Omnipresence, Denpa | 514 | `/22` (`255.255.252.0`) | `192.228.0.0` | `192.228.0.1 - 192.228.3.254` | `192.228.3.255` |
-| **A3** | Copland > Switch4 > Masayuki | 301 | `/23` (`255.255.254.0`) | `192.228.12.0` | `192.228.12.1 - 192.228.13.254` | `192.228.13.255` |
-| **A4** | Tachibana > Switch9 > Collective, Ghost | 267 | `/23` (`255.255.254.0`) | `192.228.20.0` | `192.228.20.1 - 192.228.21.254` | `192.228.21.255` |
-| **A5** | Navi > Switch6 > Alice, Reika | 254 | `/24` (`255.255.255.0`) | `192.228.24.0` | `192.228.24.1 - 192.228.24.254` | `192.228.24.255` |
-| **A6** | Navi > Switch8 > Yasuo, Miho, Kuma | 143 | `/24` (`255.255.255.0`) | `192.228.26.0` | `192.228.26.1 - 192.228.26.254` | `192.228.26.255` |
-| **A7** | Cyberia > Switch1 > JJ, MyuMyu | 126 | `/25` (`255.255.255.128`) | `192.228.28.0` | `192.228.28.1 - 192.228.28.126` | `192.228.28.127` |
-| **A8** | Deus > Switch10 > Lilith, Specter | 99 | `/25` (`255.255.255.128`) | `192.228.18.0` | `192.228.18.1 - 192.228.18.126` | `192.228.18.127` |
-| **A9** | Shibuya > Switch13 > Lain, Mika | 62 | `/26` (`255.255.255.192`) | `192.228.16.0` | `192.228.16.1 - 192.228.16.62` | `192.228.16.63` |
-| **A10** | Navi > Switch7 > Taro | 58 | `/26` (`255.255.255.192`) | `192.228.25.0` | `192.228.25.1 - 192.228.25.62` | `192.228.25.63` |
-| **A11** | Protocol7 > Switch11 > Chisa, Hodgson | 33 | `/26` (`255.255.255.192`) | `192.228.17.0` | `192.228.17.1 - 192.228.17.62` | `192.228.17.63` |
-| **A12** | Copland > Juri (Direct) | 32 | `/26` (`255.255.255.192`) | `192.228.14.0` | `192.228.14.1 - 192.228.14.62` | `192.228.14.63` |
-| **A13** | Phantoma > Switch12 > Semi | 15 | `/27` (`255.255.255.224`) | `192.228.16.64` | `192.228.16.65 - 192.228.16.94` | `192.228.16.95` |
-| **A14** | Wired > Switch2 > Psyche, Copland, Schumann | 4 | `/29` (`255.255.255.248`) | `192.228.4.0` | `192.228.4.1 - 192.228.4.6` | `192.228.4.7` |
-| **A15** | Schumann > Akashic (Direct) | 4 | `/29` (`255.255.255.248`) | `192.228.4.16` | `192.228.4.17 - 192.228.4.22` | `192.228.4.23` |
-| **A16** | Knights > Eiri (Direct) | 3 | `/29` (`255.255.255.248`) | `192.228.16.128` | `192.228.16.129 - 192.228.16.134` | `192.228.16.135` |
-| **A17** | Cyberia > Wired | 2 | `/30` (`255.255.255.252`) | `192.228.28.128` | `192.228.28.129 - 192.228.28.130` | `192.228.28.131` |
-| **A18** | Wired > Navi | 2 | `/30` (`255.255.255.252`) | `192.228.28.132` | `192.228.28.133 - 192.228.28.134` | `192.228.28.135` |
-| **A19** | Wired > Tachibana | 2 | `/30` (`255.255.255.252`) | `192.228.28.136` | `192.228.28.137 - 192.228.28.138` | `192.228.28.139` |
-| **A20** | Schumann > Accela | 2 | `/30` (`255.255.255.252`) | `192.228.4.8` | `192.228.4.9 - 192.228.4.10` | `192.228.4.11` |
-| **A21** | Tachibana > Deus | 2 | `/30` (`255.255.255.252`) | `192.228.22.0` | `192.228.22.1 - 192.228.22.2` | `192.228.22.3` |
-| **A22** | Deus > Protocol7 | 2 | `/30` (`255.255.255.252`) | `192.228.18.128` | `192.228.18.129 - 192.228.18.130` | `192.228.18.131` |
-| **A23** | Protocol7 > Knights | 2 | `/30` (`255.255.255.252`) | `192.228.17.64` | `192.228.17.65 - 192.228.17.66` | `192.228.17.67` |
-| **A24** | Knights > Phantoma | 2 | `/30` (`255.255.255.252`) | `192.228.16.136` | `192.228.16.137 - 192.228.16.138` | `192.228.16.139` |
-| **A25** | Phantoma > Shibuya | 2 | `/30` (`255.255.255.252`) | `192.228.16.96` | `192.228.16.97 - 192.228.16.98` | `192.228.16.99` |
-
-> [!NOTE]
-> Subnet **A14** dan **A17 s/d A25** tidak memiliki host end-user; segmen tersebut bertindak sebagai subnet transit router (multi-access LAN transit `Switch2` atau link point-to-point `/30`). Seluruh pembagian mengacu pada spreadsheet [`Spreadsheet Modul 4 Komdat Jarkom 2026 K34.xlsx`](./Spreadsheet%20Modul%204%20Komdat%20Jarkom%202026%20K34.xlsx) sheet **Pembagian IP - CIDR**.  
-> Contoh efisiensi prefix: A1 (881 IP) → `/22` (kapasitas 1.024); A2 (514 IP) → `/22` (karena `/23` hanya 510 usable); A5 (254 IP) → `/24` (tepat 254 host usable); A7 (126 IP) → `/25` (tepat 126 host usable); link point-to-point (2 IP) → `/30`.
+| Subnet  | Jalur / Rute                                | Kebutuhan IP |     Prefix & Netmask      |    Network ID    |          Range Usable IP          |    Broadcast     |
+| :-----: | :------------------------------------------ | :----------: | :-----------------------: | :--------------: | :-------------------------------: | :--------------: |
+| **A1**  | Psyche > Switch3 > Karl, Lin                |     881      |  `/22` (`255.255.252.0`)  |  `192.228.8.0`   |  `192.228.8.1 - 192.228.11.254`   | `192.228.11.255` |
+| **A2**  | Accela > Switch5 > Omnipresence, Denpa      |     514      |  `/22` (`255.255.252.0`)  |  `192.228.0.0`   |   `192.228.0.1 - 192.228.3.254`   | `192.228.3.255`  |
+| **A3**  | Copland > Switch4 > Masayuki                |     301      |  `/23` (`255.255.254.0`)  |  `192.228.12.0`  |  `192.228.12.1 - 192.228.13.254`  | `192.228.13.255` |
+| **A4**  | Tachibana > Switch9 > Collective, Ghost     |     267      |  `/23` (`255.255.254.0`)  |  `192.228.20.0`  |  `192.228.20.1 - 192.228.21.254`  | `192.228.21.255` |
+| **A5**  | Navi > Switch6 > Alice, Reika               |     254      |  `/24` (`255.255.255.0`)  |  `192.228.24.0`  |  `192.228.24.1 - 192.228.24.254`  | `192.228.24.255` |
+| **A6**  | Navi > Switch8 > Yasuo, Miho, Kuma          |     143      |  `/24` (`255.255.255.0`)  |  `192.228.26.0`  |  `192.228.26.1 - 192.228.26.254`  | `192.228.26.255` |
+| **A7**  | Cyberia > Switch1 > JJ, MyuMyu              |     126      | `/25` (`255.255.255.128`) |  `192.228.28.0`  |  `192.228.28.1 - 192.228.28.126`  | `192.228.28.127` |
+| **A8**  | Deus > Switch10 > Lilith, Specter           |      99      | `/25` (`255.255.255.128`) |  `192.228.18.0`  |  `192.228.18.1 - 192.228.18.126`  | `192.228.18.127` |
+| **A9**  | Shibuya > Switch13 > Lain, Mika             |      62      | `/26` (`255.255.255.192`) |  `192.228.16.0`  |  `192.228.16.1 - 192.228.16.62`   | `192.228.16.63`  |
+| **A10** | Navi > Switch7 > Taro                       |      58      | `/26` (`255.255.255.192`) |  `192.228.25.0`  |  `192.228.25.1 - 192.228.25.62`   | `192.228.25.63`  |
+| **A11** | Protocol7 > Switch11 > Chisa, Hodgson       |      33      | `/26` (`255.255.255.192`) |  `192.228.17.0`  |  `192.228.17.1 - 192.228.17.62`   | `192.228.17.63`  |
+| **A12** | Copland > Juri (Direct)                     |      32      | `/26` (`255.255.255.192`) |  `192.228.14.0`  |  `192.228.14.1 - 192.228.14.62`   | `192.228.14.63`  |
+| **A13** | Phantoma > Switch12 > Semi                  |      15      | `/27` (`255.255.255.224`) | `192.228.16.64`  |  `192.228.16.65 - 192.228.16.94`  | `192.228.16.95`  |
+| **A14** | Wired > Switch2 > Psyche, Copland, Schumann |      4       | `/29` (`255.255.255.248`) |  `192.228.4.0`   |    `192.228.4.1 - 192.228.4.6`    |  `192.228.4.7`   |
+| **A15** | Schumann > Akashic (Direct)                 |      4       | `/29` (`255.255.255.248`) |  `192.228.4.16`  |   `192.228.4.17 - 192.228.4.22`   |  `192.228.4.23`  |
+| **A16** | Knights > Eiri (Direct)                     |      3       | `/29` (`255.255.255.248`) | `192.228.16.128` | `192.228.16.129 - 192.228.16.134` | `192.228.16.135` |
+| **A17** | Cyberia > Wired                             |      2       | `/30` (`255.255.255.252`) | `192.228.28.128` | `192.228.28.129 - 192.228.28.130` | `192.228.28.131` |
+| **A18** | Wired > Navi                                |      2       | `/30` (`255.255.255.252`) | `192.228.28.132` | `192.228.28.133 - 192.228.28.134` | `192.228.28.135` |
+| **A19** | Wired > Tachibana                           |      2       | `/30` (`255.255.255.252`) | `192.228.28.136` | `192.228.28.137 - 192.228.28.138` | `192.228.28.139` |
+| **A20** | Schumann > Accela                           |      2       | `/30` (`255.255.255.252`) |  `192.228.4.8`   |   `192.228.4.9 - 192.228.4.10`    |  `192.228.4.11`  |
+| **A21** | Tachibana > Deus                            |      2       | `/30` (`255.255.255.252`) |  `192.228.22.0`  |   `192.228.22.1 - 192.228.22.2`   |  `192.228.22.3`  |
+| **A22** | Deus > Protocol7                            |      2       | `/30` (`255.255.255.252`) | `192.228.18.128` | `192.228.18.129 - 192.228.18.130` | `192.228.18.131` |
+| **A23** | Protocol7 > Knights                         |      2       | `/30` (`255.255.255.252`) | `192.228.17.64`  |  `192.228.17.65 - 192.228.17.66`  | `192.228.17.67`  |
+| **A24** | Knights > Phantoma                          |      2       | `/30` (`255.255.255.252`) | `192.228.16.136` | `192.228.16.137 - 192.228.16.138` | `192.228.16.139` |
+| **A25** | Phantoma > Shibuya                          |      2       | `/30` (`255.255.255.252`) | `192.228.16.96`  |  `192.228.16.97 - 192.228.16.98`  | `192.228.16.99`  |
 
 ---
 
@@ -104,33 +100,33 @@ Aturan: **Jumlah IP = host + alamat interface router** pada subnet tersebut.
 
 Berikut adalah tabel rincian konfigurasi seluruh **25 Host / End Device** pada GNS3:
 
-| Host | Subnet | Prefix / CIDR | IP Address | Netmask | Default Gateway |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **Karl** | A1 | `192.228.8.0/22` | `192.228.8.2` | `255.255.252.0` | `192.228.8.1` (Psyche) |
-| **Lin** | A1 | `192.228.8.0/22` | `192.228.8.3` | `255.255.252.0` | `192.228.8.1` (Psyche) |
-| **Omnipresence** | A2 | `192.228.0.0/22` | `192.228.0.2` | `255.255.252.0` | `192.228.0.1` (Accela) |
-| **Denpa** | A2 | `192.228.0.0/22` | `192.228.0.3` | `255.255.252.0` | `192.228.0.1` (Accela) |
-| **Masayuki** | A3 | `192.228.12.0/23` | `192.228.12.2` | `255.255.254.0` | `192.228.12.1` (Copland) |
-| **Collective** | A4 | `192.228.20.0/23` | `192.228.20.2` | `255.255.254.0` | `192.228.20.1` (Tachibana) |
-| **Ghost** | A4 | `192.228.20.0/23` | `192.228.20.3` | `255.255.254.0` | `192.228.20.1` (Tachibana) |
-| **Alice** | A5 | `192.228.24.0/24` | `192.228.24.2` | `255.255.255.0` | `192.228.24.1` (Navi) |
-| **Reika** | A5 | `192.228.24.0/24` | `192.228.24.3` | `255.255.255.0` | `192.228.24.1` (Navi) |
-| **Yasuo** | A6 | `192.228.26.0/24` | `192.228.26.2` | `255.255.255.0` | `192.228.26.1` (Navi) |
-| **Miho** | A6 | `192.228.26.0/24` | `192.228.26.3` | `255.255.255.0` | `192.228.26.1` (Navi) |
-| **Kuma** | A6 | `192.228.26.0/24` | `192.228.26.4` | `255.255.255.0` | `192.228.26.1` (Navi) |
-| **JJ** | A7 | `192.228.28.0/25` | `192.228.28.2` | `255.255.255.128` | `192.228.28.1` (Cyberia) |
-| **MyuMyu** | A7 | `192.228.28.0/25` | `192.228.28.3` | `255.255.255.128` | `192.228.28.1` (Cyberia) |
-| **Lilith** | A8 | `192.228.18.0/25` | `192.228.18.2` | `255.255.255.128` | `192.228.18.1` (Deus) |
-| **Specter** | A8 | `192.228.18.0/25` | `192.228.18.3` | `255.255.255.128` | `192.228.18.1` (Deus) |
-| **Lain** | A9 | `192.228.16.0/26` | `192.228.16.2` | `255.255.255.192` | `192.228.16.1` (Shibuya) |
-| **Mika** | A9 | `192.228.16.0/26` | `192.228.16.3` | `255.255.255.192` | `192.228.16.1` (Shibuya) |
-| **Taro** | A10 | `192.228.25.0/26` | `192.228.25.2` | `255.255.255.192` | `192.228.25.1` (Navi) |
-| **Chisa** | A11 | `192.228.17.0/26` | `192.228.17.2` | `255.255.255.192` | `192.228.17.1` (Protocol7) |
-| **Hodgson** | A11 | `192.228.17.0/26` | `192.228.17.3` | `255.255.255.192` | `192.228.17.1` (Protocol7) |
-| **Juri** | A12 | `192.228.14.0/26` | `192.228.14.2` | `255.255.255.192` | `192.228.14.1` (Copland) |
-| **Semi** | A13 | `192.228.16.64/27` | `192.228.16.66` | `255.255.255.224` | `192.228.16.65` (Phantoma) |
-| **Akashic** | A15 | `192.228.4.16/29` | `192.228.4.18` | `255.255.255.248` | `192.228.4.17` (Schumann) |
-| **Eiri** | A16 | `192.228.16.128/29` | `192.228.16.130` | `255.255.255.248` | `192.228.16.129` (Knights) |
+| Host             | Subnet |    Prefix / CIDR    |    IP Address    |      Netmask      | Default Gateway            |
+| :--------------- | :----: | :-----------------: | :--------------: | :---------------: | :------------------------- |
+| **Karl**         |   A1   |  `192.228.8.0/22`   |  `192.228.8.2`   |  `255.255.252.0`  | `192.228.8.1` (Psyche)     |
+| **Lin**          |   A1   |  `192.228.8.0/22`   |  `192.228.8.3`   |  `255.255.252.0`  | `192.228.8.1` (Psyche)     |
+| **Omnipresence** |   A2   |  `192.228.0.0/22`   |  `192.228.0.2`   |  `255.255.252.0`  | `192.228.0.1` (Accela)     |
+| **Denpa**        |   A2   |  `192.228.0.0/22`   |  `192.228.0.3`   |  `255.255.252.0`  | `192.228.0.1` (Accela)     |
+| **Masayuki**     |   A3   |  `192.228.12.0/23`  |  `192.228.12.2`  |  `255.255.254.0`  | `192.228.12.1` (Copland)   |
+| **Collective**   |   A4   |  `192.228.20.0/23`  |  `192.228.20.2`  |  `255.255.254.0`  | `192.228.20.1` (Tachibana) |
+| **Ghost**        |   A4   |  `192.228.20.0/23`  |  `192.228.20.3`  |  `255.255.254.0`  | `192.228.20.1` (Tachibana) |
+| **Alice**        |   A5   |  `192.228.24.0/24`  |  `192.228.24.2`  |  `255.255.255.0`  | `192.228.24.1` (Navi)      |
+| **Reika**        |   A5   |  `192.228.24.0/24`  |  `192.228.24.3`  |  `255.255.255.0`  | `192.228.24.1` (Navi)      |
+| **Yasuo**        |   A6   |  `192.228.26.0/24`  |  `192.228.26.2`  |  `255.255.255.0`  | `192.228.26.1` (Navi)      |
+| **Miho**         |   A6   |  `192.228.26.0/24`  |  `192.228.26.3`  |  `255.255.255.0`  | `192.228.26.1` (Navi)      |
+| **Kuma**         |   A6   |  `192.228.26.0/24`  |  `192.228.26.4`  |  `255.255.255.0`  | `192.228.26.1` (Navi)      |
+| **JJ**           |   A7   |  `192.228.28.0/25`  |  `192.228.28.2`  | `255.255.255.128` | `192.228.28.1` (Cyberia)   |
+| **MyuMyu**       |   A7   |  `192.228.28.0/25`  |  `192.228.28.3`  | `255.255.255.128` | `192.228.28.1` (Cyberia)   |
+| **Lilith**       |   A8   |  `192.228.18.0/25`  |  `192.228.18.2`  | `255.255.255.128` | `192.228.18.1` (Deus)      |
+| **Specter**      |   A8   |  `192.228.18.0/25`  |  `192.228.18.3`  | `255.255.255.128` | `192.228.18.1` (Deus)      |
+| **Lain**         |   A9   |  `192.228.16.0/26`  |  `192.228.16.2`  | `255.255.255.192` | `192.228.16.1` (Shibuya)   |
+| **Mika**         |   A9   |  `192.228.16.0/26`  |  `192.228.16.3`  | `255.255.255.192` | `192.228.16.1` (Shibuya)   |
+| **Taro**         |  A10   |  `192.228.25.0/26`  |  `192.228.25.2`  | `255.255.255.192` | `192.228.25.1` (Navi)      |
+| **Chisa**        |  A11   |  `192.228.17.0/26`  |  `192.228.17.2`  | `255.255.255.192` | `192.228.17.1` (Protocol7) |
+| **Hodgson**      |  A11   |  `192.228.17.0/26`  |  `192.228.17.3`  | `255.255.255.192` | `192.228.17.1` (Protocol7) |
+| **Juri**         |  A12   |  `192.228.14.0/26`  |  `192.228.14.2`  | `255.255.255.192` | `192.228.14.1` (Copland)   |
+| **Semi**         |  A13   | `192.228.16.64/27`  | `192.228.16.66`  | `255.255.255.224` | `192.228.16.65` (Phantoma) |
+| **Akashic**      |  A15   |  `192.228.4.16/29`  |  `192.228.4.18`  | `255.255.255.248` | `192.228.4.17` (Schumann)  |
+| **Eiri**         |  A16   | `192.228.16.128/29` | `192.228.16.130` | `255.255.255.248` | `192.228.16.129` (Knights) |
 
 ---
 
@@ -200,34 +196,34 @@ I1 192.228.0.0/19
 
 #### Tabel Rincian Tahap Penggabungan (Sheet "Penggabungan - CIDR")
 
-| Tahap | Kode | Subnet 1 | Subnet 2 | Netmask Akhir | Range Alamat IP | Keterangan / Cakupan |
-| :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **I** | **B1** | A14 (`/29`) | A20 (`/30`) | **`/28`** | `192.228.4.0 - 192.228.4.15` | Transit Switch2 + Link Accela |
-| **I** | **B2** | A3 (`/23`) | A12 (`/26`) | **`/22`** | `192.228.12.0 - 192.228.15.255` | Cabang Copland (Masayuki, Juri) |
-| **I** | **B3** | A13 (`/27`) | A25 (`/30`) | **`/26`** | `192.228.16.64 - 192.228.16.127` | Phantoma (LAN Semi + Link Shibuya) |
-| **I** | **B4** | A16 (`/29`) | A24 (`/30`) | **`/28`** | `192.228.16.128 - 192.228.16.143` | Knights (Server Eiri + Link Phantoma) |
-| **I** | **B5** | A11 (`/26`) | A23 (`/30`) | **`/25`** | `192.228.17.0 - 192.228.17.127` | Protocol7 (LAN + Link Knights) |
-| **I** | **B6** | A8 (`/25`) | A22 (`/30`) | **`/24`** | `192.228.18.0 - 192.228.18.255` | Deus (LAN + Link Protocol7) |
-| **I** | **B7** | A4 (`/23`) | A21 (`/30`) | **`/22`** | `192.228.20.0 - 192.228.23.255` | Tachibana (LAN + Link Deus) |
-| **I** | **B8** | A5 (`/24`) | A10 (`/26`) | **`/23`** | `192.228.24.0 - 192.228.25.255` | Navi (Switch6 + Switch7) |
-| **I** | **B9** | A17 (`/30`) | A18 (`/30`) | **`/29`** | `192.228.28.128 - 192.228.28.135` | Link Cyberia-Wired & Wired-Navi |
-| **II** | **C1** | B1 (`/28`) | A15 (`/29`) | **`/27`** | `192.228.4.0 - 192.228.4.31` | Transit Switch2 + Schumann + Akashic |
-| **II** | **C2** | A1 (`/22`) | B2 (`/22`) | **`/21`** | `192.228.8.0 - 192.228.15.255` | Cabang Psyche (Karl, Lin) + Copland |
-| **II** | **C3** | A9 (`/26`) | B3 (`/26`) | **`/25`** | `192.228.16.0 - 192.228.16.127` | Cabang Shibuya + Phantoma |
-| **II** | **C4** | B8 (`/23`) | A6 (`/24`) | **`/22`** | `192.228.24.0 - 192.228.27.255` | Seluruh LAN Navi (Sayap Kanan) |
-| **II** | **C5** | B9 (`/29`) | A19 (`/30`) | **`/28`** | `192.228.28.128 - 192.228.28.143` | Seluruh link point-to-point router Wired |
-| **III** | **D1** | A2 (`/22`) | C1 (`/27`) | **`/21`** | `192.228.0.0 - 192.228.7.255` | Accela + Schumann transit |
-| **III** | **D2** | C3 (`/25`) | B4 (`/28`) | **`/24`** | `192.228.16.0 - 192.228.16.255` | Shibuya, Phantoma, Knights |
-| **III** | **D3** | A7 (`/25`) | C5 (`/28`) | **`/24`** | `192.228.28.0 - 192.228.28.255` | LAN Cyberia + Transit links Wired |
-| **IV** | **E1** | D1 (`/21`) | C2 (`/21`) | **`/20`** | `192.228.0.0 - 192.228.15.255` | **Seluruh Sayap Kiri** (A1, A2, A3, A12, A14, A15, A20) |
-| **IV** | **E2** | D2 (`/24`) | B5 (`/25`) | **`/23`** | `192.228.16.0 - 192.228.17.255` | Shibuya, Phantoma, Knights, Protocol7 |
-| **IV** | **E3** | C4 (`/22`) | D3 (`/24`) | **`/21`** | `192.228.24.0 - 192.228.31.255` | **Sayap Kanan (Navi) + Cyberia** |
-| **V** | **F1** | E2 (`/23`) | B6 (`/24`) | **`/22`** | `192.228.16.0 - 192.228.19.255` | Deus s/d Shibuya |
-| **VI** | **G1** | F1 (`/22`) | B7 (`/22`) | **`/21`** | `192.228.16.0 - 192.228.23.255` | **Seluruh Sayap Bawah** (Tachibana s/d Shibuya) |
-| **VII** | **H1** | G1 (`/21`) | E3 (`/21`) | **`/20`** | `192.228.16.0 - 192.228.31.255` | Sayap Bawah + Sayap Kanan + Cyberia |
-| **VIII** | **I1** | E1 (`/20`) | H1 (`/20`) | **`/19`** | `192.228.0.0 - 192.228.31.255` | **Root Supernet Induk The Wired** |
+|  Tahap   |  Kode  |  Subnet 1   |  Subnet 2   | Netmask Akhir |          Range Alamat IP          | Keterangan / Cakupan                                    |
+| :------: | :----: | :---------: | :---------: | :-----------: | :-------------------------------: | :------------------------------------------------------ |
+|  **I**   | **B1** | A14 (`/29`) | A20 (`/30`) |   **`/28`**   |   `192.228.4.0 - 192.228.4.15`    | Transit Switch2 + Link Accela                           |
+|  **I**   | **B2** | A3 (`/23`)  | A12 (`/26`) |   **`/22`**   |  `192.228.12.0 - 192.228.15.255`  | Cabang Copland (Masayuki, Juri)                         |
+|  **I**   | **B3** | A13 (`/27`) | A25 (`/30`) |   **`/26`**   | `192.228.16.64 - 192.228.16.127`  | Phantoma (LAN Semi + Link Shibuya)                      |
+|  **I**   | **B4** | A16 (`/29`) | A24 (`/30`) |   **`/28`**   | `192.228.16.128 - 192.228.16.143` | Knights (Server Eiri + Link Phantoma)                   |
+|  **I**   | **B5** | A11 (`/26`) | A23 (`/30`) |   **`/25`**   |  `192.228.17.0 - 192.228.17.127`  | Protocol7 (LAN + Link Knights)                          |
+|  **I**   | **B6** | A8 (`/25`)  | A22 (`/30`) |   **`/24`**   |  `192.228.18.0 - 192.228.18.255`  | Deus (LAN + Link Protocol7)                             |
+|  **I**   | **B7** | A4 (`/23`)  | A21 (`/30`) |   **`/22`**   |  `192.228.20.0 - 192.228.23.255`  | Tachibana (LAN + Link Deus)                             |
+|  **I**   | **B8** | A5 (`/24`)  | A10 (`/26`) |   **`/23`**   |  `192.228.24.0 - 192.228.25.255`  | Navi (Switch6 + Switch7)                                |
+|  **I**   | **B9** | A17 (`/30`) | A18 (`/30`) |   **`/29`**   | `192.228.28.128 - 192.228.28.135` | Link Cyberia-Wired & Wired-Navi                         |
+|  **II**  | **C1** | B1 (`/28`)  | A15 (`/29`) |   **`/27`**   |   `192.228.4.0 - 192.228.4.31`    | Transit Switch2 + Schumann + Akashic                    |
+|  **II**  | **C2** | A1 (`/22`)  | B2 (`/22`)  |   **`/21`**   |  `192.228.8.0 - 192.228.15.255`   | Cabang Psyche (Karl, Lin) + Copland                     |
+|  **II**  | **C3** | A9 (`/26`)  | B3 (`/26`)  |   **`/25`**   |  `192.228.16.0 - 192.228.16.127`  | Cabang Shibuya + Phantoma                               |
+|  **II**  | **C4** | B8 (`/23`)  | A6 (`/24`)  |   **`/22`**   |  `192.228.24.0 - 192.228.27.255`  | Seluruh LAN Navi (Sayap Kanan)                          |
+|  **II**  | **C5** | B9 (`/29`)  | A19 (`/30`) |   **`/28`**   | `192.228.28.128 - 192.228.28.143` | Seluruh link point-to-point router Wired                |
+| **III**  | **D1** | A2 (`/22`)  | C1 (`/27`)  |   **`/21`**   |   `192.228.0.0 - 192.228.7.255`   | Accela + Schumann transit                               |
+| **III**  | **D2** | C3 (`/25`)  | B4 (`/28`)  |   **`/24`**   |  `192.228.16.0 - 192.228.16.255`  | Shibuya, Phantoma, Knights                              |
+| **III**  | **D3** | A7 (`/25`)  | C5 (`/28`)  |   **`/24`**   |  `192.228.28.0 - 192.228.28.255`  | LAN Cyberia + Transit links Wired                       |
+|  **IV**  | **E1** | D1 (`/21`)  | C2 (`/21`)  |   **`/20`**   |  `192.228.0.0 - 192.228.15.255`   | **Seluruh Sayap Kiri** (A1, A2, A3, A12, A14, A15, A20) |
+|  **IV**  | **E2** | D2 (`/24`)  | B5 (`/25`)  |   **`/23`**   |  `192.228.16.0 - 192.228.17.255`  | Shibuya, Phantoma, Knights, Protocol7                   |
+|  **IV**  | **E3** | C4 (`/22`)  | D3 (`/24`)  |   **`/21`**   |  `192.228.24.0 - 192.228.31.255`  | **Sayap Kanan (Navi) + Cyberia**                        |
+|  **V**   | **F1** | E2 (`/23`)  | B6 (`/24`)  |   **`/22`**   |  `192.228.16.0 - 192.228.19.255`  | Deus s/d Shibuya                                        |
+|  **VI**  | **G1** | F1 (`/22`)  | B7 (`/22`)  |   **`/21`**   |  `192.228.16.0 - 192.228.23.255`  | **Seluruh Sayap Bawah** (Tachibana s/d Shibuya)         |
+| **VII**  | **H1** | G1 (`/21`)  | E3 (`/21`)  |   **`/20`**   |  `192.228.16.0 - 192.228.31.255`  | Sayap Bawah + Sayap Kanan + Cyberia                     |
+| **VIII** | **I1** | E1 (`/20`)  | H1 (`/20`)  |   **`/19`**   |  `192.228.0.0 - 192.228.31.255`   | **Root Supernet Induk The Wired**                       |
 
-Total alokasi subnet adalah **4.188 dari 8.192 alamat** pada Root Supernet `192.228.0.0/19`. Sisa ruang sebanyak **4.004 alamat** merupakan ruang ekspansi (*free address space*) yang aman digunakan untuk perluasan cabang di masa mendatang tanpa menimbulkan pemecahan (*fragmentation*) tabel routing.
+Total alokasi subnet adalah **4.188 dari 8.192 alamat** pada Root Supernet `192.228.0.0/19`. Sisa ruang sebanyak **4.004 alamat** merupakan ruang ekspansi (_free address space_) yang aman digunakan untuk perluasan cabang di masa mendatang tanpa menimbulkan pemecahan (_fragmentation_) tabel routing.
 
 ---
 
@@ -235,46 +231,46 @@ Total alokasi subnet adalah **4.188 dari 8.192 alamat** pada Root Supernet `192.
 
 #### A. Konfigurasi Interface Router
 
-| Router | Interface | Terhubung Ke | Subnet | IP Address | Netmask |
-| :--- | :---: | :--- | :---: | :---: | :---: |
-| **Cyberia** | `eth0` | Cloud / NAT1 (WAN) | - | DHCP | - |
-| | `eth1` | Switch1 (JJ, MyuMyu) | A7 | `192.228.28.1` | `255.255.255.128` |
-| | `eth2` | Wired | A17 | `192.228.28.129` | `255.255.255.252` |
-| **Wired** | `eth0` | Cyberia | A17 | `192.228.28.130` | `255.255.255.252` |
-| | `eth1` | Switch2 (Psyche, Copland, Schumann) | A14 | `192.228.4.1` | `255.255.255.248` |
-| | `eth2` | Tachibana | A19 | `192.228.28.137` | `255.255.255.252` |
-| | `eth3` | Navi | A18 | `192.228.28.133` | `255.255.255.252` |
-| **Navi** | `eth0` | Wired | A18 | `192.228.28.134` | `255.255.255.252` |
-| | `eth1` | Switch6 (Alice, Reika) | A5 | `192.228.24.1` | `255.255.255.0` |
-| | `eth2` | Switch7 (Taro) | A10 | `192.228.25.1` | `255.255.255.192` |
-| | `eth3` | Switch8 (Yasuo, Miho, Kuma) | A6 | `192.228.26.1` | `255.255.255.0` |
-| **Tachibana** | `eth0` | Wired | A19 | `192.228.28.138` | `255.255.255.252` |
-| | `eth1` | Switch9 (Collective, Ghost) | A4 | `192.228.20.1` | `255.255.254.0` |
-| | `eth2` | Deus | A21 | `192.228.22.1` | `255.255.255.252` |
-| **Deus** | `eth0` | Tachibana | A21 | `192.228.22.2` | `255.255.255.252` |
-| | `eth1` | Switch10 (Lilith, Specter) | A8 | `192.228.18.1` | `255.255.255.128` |
-| | `eth2` | Protocol7 | A22 | `192.228.18.129` | `255.255.255.252` |
-| **Protocol7** | `eth0` | Deus | A22 | `192.228.18.130` | `255.255.255.252` |
-| | `eth1` | Switch11 (Chisa, Hodgson) | A11 | `192.228.17.1` | `255.255.255.192` |
-| | `eth2` | Knights | A23 | `192.228.17.65` | `255.255.255.252` |
-| **Knights** | `eth0` | Protocol7 | A23 | `192.228.17.66` | `255.255.255.252` |
-| | `eth1` | Server Eiri | A16 | `192.228.16.129` | `255.255.255.248` |
-| | `eth2` | Phantoma | A24 | `192.228.16.137` | `255.255.255.252` |
-| **Phantoma** | `eth0` | Knights | A24 | `192.228.16.138` | `255.255.255.252` |
-| | `eth1` | Switch12 (Semi) | A13 | `192.228.16.65` | `255.255.255.224` |
-| | `eth2` | Shibuya | A25 | `192.228.16.97` | `255.255.255.252` |
-| **Shibuya** | `eth0` | Phantoma | A25 | `192.228.16.98` | `255.255.255.252` |
-| | `eth1` | Switch13 (Lain, Mika) | A9 | `192.228.16.1` | `255.255.255.192` |
-| **Psyche** | `eth0` | Switch2 | A14 | `192.228.4.2` | `255.255.255.248` |
-| | `eth1` | Switch3 (Karl, Lin) | A1 | `192.228.8.1` | `255.255.252.0` |
-| **Copland** | `eth0` | Switch2 | A14 | `192.228.4.3` | `255.255.255.248` |
-| | `eth1` | Switch4 (Masayuki) | A3 | `192.228.12.1` | `255.255.254.0` |
-| | `eth2` | Server Juri | A12 | `192.228.14.1` | `255.255.255.192` |
-| **Schumann** | `eth0` | Switch2 | A14 | `192.228.4.4` | `255.255.255.248` |
-| | `eth1` | Server Akashic | A15 | `192.228.4.17` | `255.255.255.248` |
-| | `eth2` | Accela | A20 | `192.228.4.9` | `255.255.255.252` |
-| **Accela** | `eth0` | Schumann | A20 | `192.228.4.10` | `255.255.255.252` |
-| | `eth1` | Switch5 (Omnipresence, Denpa) | A2 | `192.228.0.1` | `255.255.252.0` |
+| Router        | Interface | Terhubung Ke                        | Subnet |    IP Address    |      Netmask      |
+| :------------ | :-------: | :---------------------------------- | :----: | :--------------: | :---------------: |
+| **Cyberia**   |  `eth0`   | Cloud / NAT1 (WAN)                  |   -    |       DHCP       |         -         |
+|               |  `eth1`   | Switch1 (JJ, MyuMyu)                |   A7   |  `192.228.28.1`  | `255.255.255.128` |
+|               |  `eth2`   | Wired                               |  A17   | `192.228.28.129` | `255.255.255.252` |
+| **Wired**     |  `eth0`   | Cyberia                             |  A17   | `192.228.28.130` | `255.255.255.252` |
+|               |  `eth1`   | Switch2 (Psyche, Copland, Schumann) |  A14   |  `192.228.4.1`   | `255.255.255.248` |
+|               |  `eth2`   | Tachibana                           |  A19   | `192.228.28.137` | `255.255.255.252` |
+|               |  `eth3`   | Navi                                |  A18   | `192.228.28.133` | `255.255.255.252` |
+| **Navi**      |  `eth0`   | Wired                               |  A18   | `192.228.28.134` | `255.255.255.252` |
+|               |  `eth1`   | Switch6 (Alice, Reika)              |   A5   |  `192.228.24.1`  |  `255.255.255.0`  |
+|               |  `eth2`   | Switch7 (Taro)                      |  A10   |  `192.228.25.1`  | `255.255.255.192` |
+|               |  `eth3`   | Switch8 (Yasuo, Miho, Kuma)         |   A6   |  `192.228.26.1`  |  `255.255.255.0`  |
+| **Tachibana** |  `eth0`   | Wired                               |  A19   | `192.228.28.138` | `255.255.255.252` |
+|               |  `eth1`   | Switch9 (Collective, Ghost)         |   A4   |  `192.228.20.1`  |  `255.255.254.0`  |
+|               |  `eth2`   | Deus                                |  A21   |  `192.228.22.1`  | `255.255.255.252` |
+| **Deus**      |  `eth0`   | Tachibana                           |  A21   |  `192.228.22.2`  | `255.255.255.252` |
+|               |  `eth1`   | Switch10 (Lilith, Specter)          |   A8   |  `192.228.18.1`  | `255.255.255.128` |
+|               |  `eth2`   | Protocol7                           |  A22   | `192.228.18.129` | `255.255.255.252` |
+| **Protocol7** |  `eth0`   | Deus                                |  A22   | `192.228.18.130` | `255.255.255.252` |
+|               |  `eth1`   | Switch11 (Chisa, Hodgson)           |  A11   |  `192.228.17.1`  | `255.255.255.192` |
+|               |  `eth2`   | Knights                             |  A23   | `192.228.17.65`  | `255.255.255.252` |
+| **Knights**   |  `eth0`   | Protocol7                           |  A23   | `192.228.17.66`  | `255.255.255.252` |
+|               |  `eth1`   | Server Eiri                         |  A16   | `192.228.16.129` | `255.255.255.248` |
+|               |  `eth2`   | Phantoma                            |  A24   | `192.228.16.137` | `255.255.255.252` |
+| **Phantoma**  |  `eth0`   | Knights                             |  A24   | `192.228.16.138` | `255.255.255.252` |
+|               |  `eth1`   | Switch12 (Semi)                     |  A13   | `192.228.16.65`  | `255.255.255.224` |
+|               |  `eth2`   | Shibuya                             |  A25   | `192.228.16.97`  | `255.255.255.252` |
+| **Shibuya**   |  `eth0`   | Phantoma                            |  A25   | `192.228.16.98`  | `255.255.255.252` |
+|               |  `eth1`   | Switch13 (Lain, Mika)               |   A9   |  `192.228.16.1`  | `255.255.255.192` |
+| **Psyche**    |  `eth0`   | Switch2                             |  A14   |  `192.228.4.2`   | `255.255.255.248` |
+|               |  `eth1`   | Switch3 (Karl, Lin)                 |   A1   |  `192.228.8.1`   |  `255.255.252.0`  |
+| **Copland**   |  `eth0`   | Switch2                             |  A14   |  `192.228.4.3`   | `255.255.255.248` |
+|               |  `eth1`   | Switch4 (Masayuki)                  |   A3   |  `192.228.12.1`  |  `255.255.254.0`  |
+|               |  `eth2`   | Server Juri                         |  A12   |  `192.228.14.1`  | `255.255.255.192` |
+| **Schumann**  |  `eth0`   | Switch2                             |  A14   |  `192.228.4.4`   | `255.255.255.248` |
+|               |  `eth1`   | Server Akashic                      |  A15   |  `192.228.4.17`  | `255.255.255.248` |
+|               |  `eth2`   | Accela                              |  A20   |  `192.228.4.9`   | `255.255.255.252` |
+| **Accela**    |  `eth0`   | Schumann                            |  A20   |  `192.228.4.10`  | `255.255.255.252` |
+|               |  `eth1`   | Switch5 (Omnipresence, Denpa)       |   A2   |  `192.228.0.1`   |  `255.255.252.0`  |
 
 #### B. Routing di Semua Router
 
@@ -372,98 +368,6 @@ Seluruh router di GNS3 menggunakan sistem operasi Linux dengan perintah routing 
 
 ---
 
-### 6. Panduan & Hasil Pengujian Konektivitas (GNS3)
-
-Pengujian dilakukan langsung pada konsol terminal Linux setiap node GNS3 untuk memvalidasi tabel routing dan konektivitas antarnode.
-
-#### A. Tabel Hasil Pengujian GNS3
-
-| Skenario Pengujian | Titik Uji Asal & Tujuan | Target Hasil | Hasil Aktual | Status |
-| :--- | :--- | :--- | :--- | :---: |
-| **Konektivitas Lokal** | 25 Client ke Default Gateway masing-masing | 0% Loss | 25/25 Berhasil | **LULUS (100%)** |
-| **Lintas Host (Ujung ke Ujung)** | Lain (`192.228.16.2`) ↔ JJ (`192.228.28.2`) | 0% Loss | 4/4 Received (0% Loss) | **LULUS** |
-| **Lintas Sayap Kiri-Bawah** | Omnipresence (`192.228.0.2`) ↔ Mika (`192.228.16.3`) | 0% Loss | 4/4 Received (0% Loss) | **LULUS** |
-| **Host ke Router Lintas Cabang** | Karl (`192.228.8.2`) ↔ Shibuya (`192.228.16.1`) | 0% Loss | 4/4 Received (0% Loss) | **LULUS** |
-| **Host ke Router Cabang Lain** | Yasuo (`192.228.26.2`) ↔ Phantoma (`192.228.16.65`) | 0% Loss | 4/4 Received (0% Loss) | **LULUS** |
-| **Router ke Router Antar-Cabang** | Cyberia (`192.228.28.129`) ↔ Shibuya (`192.228.16.98`) | 0% Loss | 4/4 Received (0% Loss) | **LULUS** |
-| **Router ke Router Melintasi Core** | Psyche (`192.228.4.2`) ↔ Protocol7 (`192.228.17.1`) | 0% Loss | 4/4 Received (0% Loss) | **LULUS** |
-| **Akses Internet Luar (NAT)** | Host Lain (`192.228.16.2`) → Internet DNS (`8.8.8.8`) | 0% Loss via Cyberia `eth0` | Translasi Terbentuk | **LULUS** |
-
-#### B. Perintah Pengujian Demo
-
-1. **Cek Routing Table (`ip route`)**:
-   - Di konsol `Cyberia`, `Wired`, dan `Tachibana`, ketik:
-     ```bash
-     ip route
-     ```
-     *Target:* Seluruh rute summary dan connected berstatus aktif dan sesuai tabel rute CIDR.
-
-2. **Ping Host ke Host (PC - PC)**:
-   - Dari konsol **Lain** ke **JJ**:
-     ```bash
-     ping -c 4 192.228.28.2
-     ```
-   - Dari konsol **JJ** ke **Lain**:
-     ```bash
-     ping -c 4 192.228.16.2
-     ```
-   - Dari konsol **Omnipresence** ke **Mika**:
-     ```bash
-     ping -c 4 192.228.16.3
-     ```
-   - Dari konsol **Mika** ke **Omnipresence**:
-     ```bash
-     ping -c 4 192.228.0.2
-     ```
-
-3. **Ping Host ke Router (PC - Router)**:
-   - Dari konsol **Karl** ke Router **Shibuya**:
-     ```bash
-     ping -c 4 192.228.16.1
-     ```
-   - Dari konsol **Shibuya** ke PC **Karl**:
-     ```bash
-     ping -c 4 192.228.8.2
-     ```
-   - Dari konsol **Yasuo** ke Router **Phantoma**:
-     ```bash
-     ping -c 4 192.228.16.65
-     ```
-   - Dari konsol **Phantoma** ke PC **Yasuo**:
-     ```bash
-     ping -c 4 192.228.26.2
-     ```
-
-4. **Ping Router ke Router**:
-   - Dari konsol **Cyberia** ke Router **Shibuya**:
-     ```bash
-     ping -c 4 192.228.16.1
-     ```
-   - Dari konsol **Shibuya** ke Router **Cyberia**:
-     ```bash
-     ping -c 4 192.228.28.1
-     ```
-   - Dari konsol **Psyche** ke Router **Protocol7**:
-     ```bash
-     ping -c 4 192.228.17.1
-     ```
-   - Dari konsol **Protocol7** ke Router **Psyche**:
-     ```bash
-     ping -c 4 192.228.8.1
-     ```
-
-5. **Koneksi ke Internet Luar (NAT Masquerade)**:
-   - Dari konsol PC **Lain** (node paling ujung di Sayap Bawah):
-     ```bash
-     ping -c 4 8.8.8.8
-     ```
-   - Bukti NAT bekerja (cek di konsol Router **Cyberia**):
-     ```bash
-     iptables -t nat -L POSTROUTING -n -v
-     ```
-
----
-
 ## III. CISCO PACKET TRACER (CPT) — VLSM
 
 Pada bagian simulasi Cisco Packet Tracer diterapkan metode **VLSM (Variable Length Subnet Mask)** dengan blok alamat dasar (Root Supernet) **`192.228.0.0/19`**. Setiap subnet memperoleh panjang prefix yang berbeda sesuai kebutuhan host dan interface router pada segmen tersebut, sehingga pemborosan alamat dapat ditekan seminimal mungkin. Seluruh skema pengalamatan, konfigurasi interface router Cisco, switch, host PC, routing OSPF, serta NAT gateway telah diimplementasikan pada file project [`K-34-CPT-VLSM-.pkt`](./K-34-CPT-VLSM-.pkt).
@@ -479,18 +383,18 @@ Topologi CPT memakai perangkat Cisco: **13 Router (Cisco 2811), 13 Switch, 25 Ho
 ![Topologi Jaringan CPT](assets/topologiPKT.png)
 
 - **Gateway Internet & LAN Atas**:
-  - **`Cyberia`**: terhubung ke `Cloud0` (akses WAN internet) melalui `FastEthernet0/0`, ke LAN client (`JJ`, `MyuMyu` via `Switch1`) melalui `FastEthernet0/1`, dan ke backbone **`Wired`** melalui `FastEthernet1/0`.
+    - **`Cyberia`**: terhubung ke `Cloud0` (akses WAN internet) melalui `FastEthernet0/0`, ke LAN client (`JJ`, `MyuMyu` via `Switch1`) melalui `FastEthernet0/1`, dan ke backbone **`Wired`** melalui `FastEthernet1/0`.
 - **Backbone Router**:
-  - **`Wired`**: pusat transit trafik antarsayap dan default gateway internal ke arah Cyberia. Terhubung ke `Switch2` (LAN sentral A14) yang juga menghubungkan **`Psyche`**, **`Copland`**, dan **`Schumann`**.
+    - **`Wired`**: pusat transit trafik antarsayap dan default gateway internal ke arah Cyberia. Terhubung ke `Switch2` (LAN sentral A14) yang juga menghubungkan **`Psyche`**, **`Copland`**, dan **`Schumann`**.
 - **Sayap Kiri (Multi-access Switch2)**:
-  - **`Psyche`** membawahi `Switch3` (`Karl` dan `Lin` — blok terbesar 881 IP, Subnet A1).
-  - **`Copland`** membawahi `Switch4` (`Masayuki` — 301 IP, Subnet A3) serta direct link ke host **`Juri`** (32 IP, Subnet A12).
-  - **`Schumann`** membawahi direct host **`Akashic`** (Subnet A15) dan Router **`Accela`** (`Switch5` → `Omnipresence` dan `Denpa` — 514 IP, Subnet A2).
+    - **`Psyche`** membawahi `Switch3` (`Karl` dan `Lin` — blok terbesar 881 IP, Subnet A1).
+    - **`Copland`** membawahi `Switch4` (`Masayuki` — 301 IP, Subnet A3) serta direct link ke host **`Juri`** (32 IP, Subnet A12).
+    - **`Schumann`** membawahi direct host **`Akashic`** (Subnet A15) dan Router **`Accela`** (`Switch5` → `Omnipresence` dan `Denpa` — 514 IP, Subnet A2).
 - **Sayap Kanan (Router Navi)**:
-  - **`Navi`** membawahi 3 subnet LAN: `Switch6` (`Alice`, `Reika` — Subnet A5), `Switch7` (`Taro` — Subnet A10), dan `Switch8` (`Yasuo`, `Miho`, `Kuma` — Subnet A6).
+    - **`Navi`** membawahi 3 subnet LAN: `Switch6` (`Alice`, `Reika` — Subnet A5), `Switch7` (`Taro` — Subnet A10), dan `Switch8` (`Yasuo`, `Miho`, `Kuma` — Subnet A6).
 - **Sayap Bawah (Rantai Router Tachibana s.d. Shibuya)**:
-  - Rantai 6 router: **`Tachibana` → `Deus` → `Protocol7` → `Knights` → `Phantoma` → `Shibuya`**.
-  - Setiap router memiliki segmen LAN masing-masing (`Switch9` s.d. `Switch13` serta server direct `Eiri` pada Knights).
+    - Rantai 6 router: **`Tachibana` → `Deus` → `Protocol7` → `Knights` → `Phantoma` → `Shibuya`**.
+    - Setiap router memiliki segmen LAN masing-masing (`Switch9` s.d. `Switch13` serta server direct `Eiri` pada Knights).
 
 > [!NOTE]
 > Modul **`NM-2FE2W`** dipasang pada router yang membutuhkan 3–4 port routed (Cyberia, Wired, Navi, Tachibana, Deus, Protocol7, Knights, Phantoma, Copland, Schumann). Modul ini menambah interface `FastEthernet1/0` dan `FastEthernet1/1`.
@@ -594,16 +498,16 @@ host pertama   = network + 2
 
 Tabel konversi prefix yang dipakai pada CPT:
 
-| Prefix | Netmask | Jumlah IP Blok | Usable Host |
-| :---: | :---: | :---: | :---: |
-| `/22` | `255.255.252.0` | 1.024 | 1.022 |
-| `/23` | `255.255.254.0` | 512 | 510 |
-| `/24` | `255.255.255.0` | 256 | 254 |
-| `/25` | `255.255.255.128` | 128 | 126 |
-| `/26` | `255.255.255.192` | 64 | 62 |
-| `/27` | `255.255.255.224` | 32 | 30 |
-| `/29` | `255.255.255.248` | 8 | 6 |
-| `/30` | `255.255.255.252` | 4 | 2 |
+| Prefix |      Netmask      | Jumlah IP Blok | Usable Host |
+| :----: | :---------------: | :------------: | :---------: |
+| `/22`  |  `255.255.252.0`  |     1.024      |    1.022    |
+| `/23`  |  `255.255.254.0`  |      512       |     510     |
+| `/24`  |  `255.255.255.0`  |      256       |     254     |
+| `/25`  | `255.255.255.128` |      128       |     126     |
+| `/26`  | `255.255.255.192` |       64       |     62      |
+| `/27`  | `255.255.255.224` |       32       |     30      |
+| `/29`  | `255.255.255.248` |       8        |      6      |
+| `/30`  | `255.255.255.252` |       4        |      2      |
 
 > [!NOTE]
 > Total **kebutuhan** seluruh subnet (host + interface router) adalah **2.814 IP**, sedangkan total **alamat yang dialokasikan** (jumlah blok pangkat-2) adalah **4.188 IP**. Blok terkecil yang mampu menampung seluruh alokasi tersebut adalah **`192.228.0.0/19`** (8.192 alamat). Kedua angka tersebut bukan kontradiksi: 2.814 adalah kebutuhan riil, 4.188 adalah kapasitas blok yang disediakan.
@@ -614,33 +518,33 @@ Tabel konversi prefix yang dipakai pada CPT:
 
 Subnet diurutkan dari kebutuhan IP terbesar ke terkecil (**A1 – A25**) dan dialokasikan berurutan mulai dari `192.228.0.0`:
 
-| Subnet | Jalur / Rute | Kebutuhan IP | Netmask | Network ID | Range Usable IP | Broadcast |
-| :---: | :--- | :---: | :---: | :---: | :---: | :---: |
-| **A1** | Psyche > Switch3 > Karl, Lin | 881 | `/22` (`255.255.252.0`) | `192.228.8.0` | `192.228.8.1 - 192.228.11.254` | `192.228.11.255` |
-| **A2** | Accela > Switch5 > Omnipresence, Denpa | 514 | `/22` (`255.255.252.0`) | `192.228.0.0` | `192.228.0.1 - 192.228.3.254` | `192.228.3.255` |
-| **A3** | Copland > Switch4 > Masayuki | 301 | `/23` (`255.255.254.0`) | `192.228.12.0` | `192.228.12.1 - 192.228.13.254` | `192.228.13.255` |
-| **A4** | Tachibana > Switch9 > Collective, Ghost | 267 | `/23` (`255.255.254.0`) | `192.228.20.0` | `192.228.20.1 - 192.228.21.254` | `192.228.21.255` |
-| **A5** | Navi > Switch6 > Alice, Reika | 254 | `/24` (`255.255.255.0`) | `192.228.24.0` | `192.228.24.1 - 192.228.24.254` | `192.228.24.255` |
-| **A6** | Navi > Switch8 > Yasuo, Miho, Kuma | 143 | `/24` (`255.255.255.0`) | `192.228.26.0` | `192.228.26.1 - 192.228.26.254` | `192.228.26.255` |
-| **A7** | Cyberia > Switch1 > JJ, MyuMyu | 126 | `/25` (`255.255.255.128`) | `192.228.28.0` | `192.228.28.1 - 192.228.28.126` | `192.228.28.127` |
-| **A8** | Deus > Switch10 > Lilith, Specter | 99 | `/25` (`255.255.255.128`) | `192.228.18.0` | `192.228.18.1 - 192.228.18.126` | `192.228.18.127` |
-| **A9** | Shibuya > Switch13 > Lain, Mika | 62 | `/26` (`255.255.255.192`) | `192.228.16.0` | `192.228.16.1 - 192.228.16.62` | `192.228.16.63` |
-| **A10** | Navi > Switch7 > Taro | 58 | `/26` (`255.255.255.192`) | `192.228.25.0` | `192.228.25.1 - 192.228.25.62` | `192.228.25.63` |
-| **A11** | Protocol7 > Switch11 > Chisa, Hodgeson | 33 | `/26` (`255.255.255.192`) | `192.228.17.0` | `192.228.17.1 - 192.228.17.62` | `192.228.17.63` |
-| **A12** | Copland > Juri (Direct) | 32 | `/26` (`255.255.255.192`) | `192.228.14.0` | `192.228.14.1 - 192.228.14.62` | `192.228.14.63` |
-| **A13** | Phantoma > Switch12 > Semi | 15 | `/27` (`255.255.255.224`) | `192.228.16.64` | `192.228.16.65 - 192.228.16.94` | `192.228.16.95` |
-| **A14** | Wired > Switch2 > Psyche, Copland, Schumann | 4 | `/29` (`255.255.255.248`) | `192.228.4.0` | `192.228.4.1 - 192.228.4.6` | `192.228.4.7` |
-| **A15** | Schumann > Akashic (Direct) | 4 | `/29` (`255.255.255.248`) | `192.228.4.16` | `192.228.4.17 - 192.228.4.22` | `192.228.4.23` |
-| **A16** | Knights > Eiri (Direct) | 3 | `/29` (`255.255.255.248`) | `192.228.16.128` | `192.228.16.129 - 192.228.16.134` | `192.228.16.135` |
-| **A17** | Cyberia > Wired | 2 | `/30` (`255.255.255.252`) | `192.228.28.128` | `192.228.28.129 - 192.228.28.130` | `192.228.28.131` |
-| **A18** | Wired > Navi | 2 | `/30` (`255.255.255.252`) | `192.228.28.132` | `192.228.28.133 - 192.228.28.134` | `192.228.28.135` |
-| **A19** | Wired > Tachibana | 2 | `/30` (`255.255.255.252`) | `192.228.28.136` | `192.228.28.137 - 192.228.28.138` | `192.228.28.139` |
-| **A20** | Schumann > Accela | 2 | `/30` (`255.255.255.252`) | `192.228.4.8` | `192.228.4.9 - 192.228.4.10` | `192.228.4.11` |
-| **A21** | Tachibana > Deus | 2 | `/30` (`255.255.255.252`) | `192.228.22.0` | `192.228.22.1 - 192.228.22.2` | `192.228.22.3` |
-| **A22** | Deus > Protocol7 | 2 | `/30` (`255.255.255.252`) | `192.228.18.128` | `192.228.18.129 - 192.228.18.130` | `192.228.18.131` |
-| **A23** | Protocol7 > Knights | 2 | `/30` (`255.255.255.252`) | `192.228.17.64` | `192.228.17.65 - 192.228.17.66` | `192.228.17.67` |
-| **A24** | Knights > Phantoma | 2 | `/30` (`255.255.255.252`) | `192.228.16.136` | `192.228.16.137 - 192.228.16.138` | `192.228.16.139` |
-| **A25** | Phantoma > Shibuya | 2 | `/30` (`255.255.255.252`) | `192.228.16.96` | `192.228.16.97 - 192.228.16.98` | `192.228.16.99` |
+| Subnet  | Jalur / Rute                                | Kebutuhan IP |          Netmask          |    Network ID    |          Range Usable IP          |    Broadcast     |
+| :-----: | :------------------------------------------ | :----------: | :-----------------------: | :--------------: | :-------------------------------: | :--------------: |
+| **A1**  | Psyche > Switch3 > Karl, Lin                |     881      |  `/22` (`255.255.252.0`)  |  `192.228.8.0`   |  `192.228.8.1 - 192.228.11.254`   | `192.228.11.255` |
+| **A2**  | Accela > Switch5 > Omnipresence, Denpa      |     514      |  `/22` (`255.255.252.0`)  |  `192.228.0.0`   |   `192.228.0.1 - 192.228.3.254`   | `192.228.3.255`  |
+| **A3**  | Copland > Switch4 > Masayuki                |     301      |  `/23` (`255.255.254.0`)  |  `192.228.12.0`  |  `192.228.12.1 - 192.228.13.254`  | `192.228.13.255` |
+| **A4**  | Tachibana > Switch9 > Collective, Ghost     |     267      |  `/23` (`255.255.254.0`)  |  `192.228.20.0`  |  `192.228.20.1 - 192.228.21.254`  | `192.228.21.255` |
+| **A5**  | Navi > Switch6 > Alice, Reika               |     254      |  `/24` (`255.255.255.0`)  |  `192.228.24.0`  |  `192.228.24.1 - 192.228.24.254`  | `192.228.24.255` |
+| **A6**  | Navi > Switch8 > Yasuo, Miho, Kuma          |     143      |  `/24` (`255.255.255.0`)  |  `192.228.26.0`  |  `192.228.26.1 - 192.228.26.254`  | `192.228.26.255` |
+| **A7**  | Cyberia > Switch1 > JJ, MyuMyu              |     126      | `/25` (`255.255.255.128`) |  `192.228.28.0`  |  `192.228.28.1 - 192.228.28.126`  | `192.228.28.127` |
+| **A8**  | Deus > Switch10 > Lilith, Specter           |      99      | `/25` (`255.255.255.128`) |  `192.228.18.0`  |  `192.228.18.1 - 192.228.18.126`  | `192.228.18.127` |
+| **A9**  | Shibuya > Switch13 > Lain, Mika             |      62      | `/26` (`255.255.255.192`) |  `192.228.16.0`  |  `192.228.16.1 - 192.228.16.62`   | `192.228.16.63`  |
+| **A10** | Navi > Switch7 > Taro                       |      58      | `/26` (`255.255.255.192`) |  `192.228.25.0`  |  `192.228.25.1 - 192.228.25.62`   | `192.228.25.63`  |
+| **A11** | Protocol7 > Switch11 > Chisa, Hodgeson      |      33      | `/26` (`255.255.255.192`) |  `192.228.17.0`  |  `192.228.17.1 - 192.228.17.62`   | `192.228.17.63`  |
+| **A12** | Copland > Juri (Direct)                     |      32      | `/26` (`255.255.255.192`) |  `192.228.14.0`  |  `192.228.14.1 - 192.228.14.62`   | `192.228.14.63`  |
+| **A13** | Phantoma > Switch12 > Semi                  |      15      | `/27` (`255.255.255.224`) | `192.228.16.64`  |  `192.228.16.65 - 192.228.16.94`  | `192.228.16.95`  |
+| **A14** | Wired > Switch2 > Psyche, Copland, Schumann |      4       | `/29` (`255.255.255.248`) |  `192.228.4.0`   |    `192.228.4.1 - 192.228.4.6`    |  `192.228.4.7`   |
+| **A15** | Schumann > Akashic (Direct)                 |      4       | `/29` (`255.255.255.248`) |  `192.228.4.16`  |   `192.228.4.17 - 192.228.4.22`   |  `192.228.4.23`  |
+| **A16** | Knights > Eiri (Direct)                     |      3       | `/29` (`255.255.255.248`) | `192.228.16.128` | `192.228.16.129 - 192.228.16.134` | `192.228.16.135` |
+| **A17** | Cyberia > Wired                             |      2       | `/30` (`255.255.255.252`) | `192.228.28.128` | `192.228.28.129 - 192.228.28.130` | `192.228.28.131` |
+| **A18** | Wired > Navi                                |      2       | `/30` (`255.255.255.252`) | `192.228.28.132` | `192.228.28.133 - 192.228.28.134` | `192.228.28.135` |
+| **A19** | Wired > Tachibana                           |      2       | `/30` (`255.255.255.252`) | `192.228.28.136` | `192.228.28.137 - 192.228.28.138` | `192.228.28.139` |
+| **A20** | Schumann > Accela                           |      2       | `/30` (`255.255.255.252`) |  `192.228.4.8`   |   `192.228.4.9 - 192.228.4.10`    |  `192.228.4.11`  |
+| **A21** | Tachibana > Deus                            |      2       | `/30` (`255.255.255.252`) |  `192.228.22.0`  |   `192.228.22.1 - 192.228.22.2`   |  `192.228.22.3`  |
+| **A22** | Deus > Protocol7                            |      2       | `/30` (`255.255.255.252`) | `192.228.18.128` | `192.228.18.129 - 192.228.18.130` | `192.228.18.131` |
+| **A23** | Protocol7 > Knights                         |      2       | `/30` (`255.255.255.252`) | `192.228.17.64`  |  `192.228.17.65 - 192.228.17.66`  | `192.228.17.67`  |
+| **A24** | Knights > Phantoma                          |      2       | `/30` (`255.255.255.252`) | `192.228.16.136` | `192.228.16.137 - 192.228.16.138` | `192.228.16.139` |
+| **A25** | Phantoma > Shibuya                          |      2       | `/30` (`255.255.255.252`) | `192.228.16.96`  |  `192.228.16.97 - 192.228.16.98`  | `192.228.16.99`  |
 
 > [!NOTE]
 > Seluruh 25 subnet di atas **100% non-overlapping** dan berada presisi di dalam batas Root Supernet **`192.228.0.0/19`** (`192.228.0.0` – `192.228.31.255`). Setiap subnet memakai blok terkecil yang masih mampu menampung kebutuhannya, sehingga alokasi dinyatakan **efisien**.
@@ -808,6 +712,7 @@ show ip route
 ```
 
 Hasil yang diharapkan:
+
 - Semua interface aktif berstatus `up/up` dengan IP sesuai tabel III.5.
 - `Wired` memiliki **6 neighbor OSPF** berstatus `FULL` (Cyberia, Psyche, Copland, Schumann, Navi, Tachibana).
 - Tabel routing memuat seluruh subnet `192.228.0.0/19` dengan flag **`O`** (OSPF).
@@ -860,10 +765,10 @@ Pengujian dilakukan dari **PC (Desktop → Command Prompt)** dan dari **router (
 
 #### 1. Uji PC ke PC — `Lain` ↔ `JJ`
 
-| Perangkat | IP | Gateway |
-| :--- | :--- | :--- |
+| Perangkat | IP             | Gateway        |
+| :-------- | :------------- | :------------- |
 | Lain (A9) | `192.228.16.2` | `192.228.16.1` |
-| JJ (A7) | `192.228.28.2` | `192.228.28.1` |
+| JJ (A7)   | `192.228.28.2` | `192.228.28.1` |
 
 ```text
 ! Dari PC Lain
@@ -877,10 +782,10 @@ Hasil: 4× `Reply from ...` (success rate 100%) pada kedua arah.
 
 #### 2. Uji PC ke PC — `Omnipresence` ↔ `Mika`
 
-| Perangkat | IP | Gateway |
-| :--- | :--- | :--- |
-| Omnipresence (A2) | `192.228.0.2` | `192.228.0.1` |
-| Mika (A9) | `192.228.16.3` | `192.228.16.1` |
+| Perangkat         | IP             | Gateway        |
+| :---------------- | :------------- | :------------- |
+| Omnipresence (A2) | `192.228.0.2`  | `192.228.0.1`  |
+| Mika (A9)         | `192.228.16.3` | `192.228.16.1` |
 
 ```text
 ! Dari PC Omnipresence
@@ -894,10 +799,10 @@ Hasil: kedua arah berhasil.
 
 #### 3. Uji PC ke Router — `Karl` ↔ `Shibuya`
 
-| Perangkat | IP |
-| :--- | :--- |
-| Karl (A1) | `192.228.8.2` |
-| Shibuya — LAN A9 (FE0/1) | `192.228.16.1` |
+| Perangkat                  | IP              |
+| :------------------------- | :-------------- |
+| Karl (A1)                  | `192.228.8.2`   |
+| Shibuya — LAN A9 (FE0/1)   | `192.228.16.1`  |
 | Shibuya — link A25 (FE0/0) | `192.228.16.98` |
 
 ```text
@@ -916,10 +821,10 @@ Hasil: dari PC muncul `Reply from ...`; dari router muncul 5× `!!!!!`.
 
 #### 4. Uji PC ke Router — `Yasuo` ↔ `Phantoma`
 
-| Perangkat | IP |
-| :--- | :--- |
-| Yasuo (A6) | `192.228.26.2` |
-| Phantoma — LAN A13 (FE0/1) | `192.228.16.65` |
+| Perangkat                   | IP               |
+| :-------------------------- | :--------------- |
+| Yasuo (A6)                  | `192.228.26.2`   |
+| Phantoma — LAN A13 (FE0/1)  | `192.228.16.65`  |
 | Phantoma — link A24 (FE0/0) | `192.228.16.138` |
 
 ```text
@@ -938,10 +843,10 @@ Hasil: kedua arah berhasil.
 
 #### 5. Uji Router ke Router — `Cyberia` ↔ `Shibuya`
 
-| Router | IP |
-| :--- | :--- |
+| Router          | IP               |
+| :-------------- | :--------------- |
 | Cyberia (FE1/0) | `192.228.28.129` |
-| Shibuya (FE0/0) | `192.228.16.98` |
+| Shibuya (FE0/0) | `192.228.16.98`  |
 
 ```cisco
 ! Dari Cyberia
@@ -957,9 +862,9 @@ Hasil: 5× `!!!!!` pada kedua arah.
 
 #### 6. Uji Router ke Router — `Psyche` ↔ `Protocol7`
 
-| Router | IP |
-| :--- | :--- |
-| Psyche (FE0/0) | `192.228.4.2` |
+| Router            | IP               |
+| :---------------- | :--------------- |
+| Psyche (FE0/0)    | `192.228.4.2`    |
 | Protocol7 (FE0/0) | `192.228.18.130` |
 
 ```cisco
@@ -990,6 +895,3 @@ show ip nat translations
 Hasil: muncul `Reply from 8.8.8.8: bytes=32 time=...ms TTL=...` dengan **TTL < 64** (bukti paket keluar melalui NAT), dan tabel NAT menampilkan translasi `192.228.16.2 → <IP WAN Cyberia>` menuju `8.8.8.8`.
 
 ---
-
-
-
