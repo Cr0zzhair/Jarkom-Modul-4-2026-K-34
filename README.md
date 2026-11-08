@@ -390,7 +390,7 @@ Topologi CPT memakai perangkat Cisco: **13 Router (Cisco 2811), 13 Switch, 25 Ho
 
 Pohon pembagian IP disusun **top-down** (dari Root Supernet ke subnet terkecil), sedangkan alokasi alamat dilakukan **bottom-up** mengikuti kebutuhan terbesar ke terkecil. Struktur pohon yang digunakan pada CPT adalah sebagai berikut:
 
-![Pohon Pembagian IP VLSM](assets/Pohon_tree.png)
+![Pohon Pembagian IP VLSM](assets/Pohon_VSLM.jpeg)
 
 ```text
 192.228.0.0/19  (Root Supernet — 8.192 alamat)
