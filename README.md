@@ -365,7 +365,7 @@ Perhitungan rinci kebutuhan IP, netmask VLSM per subnet, range usable IP, serta 
 
 Topologi CPT memakai perangkat Cisco: **13 Router (Cisco 2811), 13 Switch, 25 Host / End Device, dan 1 Cloud NAT** (total 56 perangkat dengan 51 link). Jaringan berpusat pada Router Gateway **`Cyberia`** dan Router Backbone **`Wired`**, kemudian bercabang menjadi tiga sayap utama:
 
-![Topologi Jaringan CPT](assets/Topologi_GNS3.png)
+![Topologi Jaringan CPT](assets/topologiPKT.png)
 
 - **Gateway Internet & LAN Atas**:
   - **`Cyberia`**: terhubung ke `Cloud0` (akses WAN internet) melalui `FastEthernet0/0`, ke LAN client (`JJ`, `MyuMyu` via `Switch1`) melalui `FastEthernet0/1`, dan ke backbone **`Wired`** melalui `FastEthernet1/0`.
